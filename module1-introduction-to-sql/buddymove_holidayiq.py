@@ -8,14 +8,13 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, "buddymove_holidayiq.csv")
 
+""" creating connection to new blank sqlite3 database file """
+conn = sql.connect("buddymove_holidayiq.sqlite3")
+
 """ reading in csv and checking the shape and number of NaN's """
 df = pd.read_csv(db_path)
 print("Dataframe shape: ", df.shape)
 print("Nulls in each column of dataframe:\n",df.isna().sum())
-
-
-""" creating connection to new blank sqlite3 database file """
-conn = sql.connect("buddymove_holidayiq.sqlite3")
 
 """ fill new, blank sqlite db with data from buddymove_holidayiq.csv """
 df.to_sql(name='buddymove_holidayiq', con=conn)
